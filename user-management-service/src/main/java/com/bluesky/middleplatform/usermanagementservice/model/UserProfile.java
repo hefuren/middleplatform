@@ -45,22 +45,22 @@ public class UserProfile extends BaseObject implements java.io.Serializable {
     /**
      * minimal constructor
      */
-    public UserProfile(Integer id, User user, Integer companyID) {
+    public UserProfile(Integer id, User user, Integer tenantId) {
         this.id = id;
         this.user = user;
-        this.companyID = companyID;
+        this.tenantId = tenantId;
     }
 
     /**
      * full constructor
      */
-    public UserProfile(Integer id, User user, Integer companyID,
+    public UserProfile(Integer id, User user, Integer tenantId,
                        Integer position, Date joinTime, Date leaveTime,
                        Integer createby, Date createtime, Integer lastupdateby,
                        Date lastupdatetime) {
         this.id = id;
         this.user = user;
-        this.companyID = companyID;
+        this.tenantId = tenantId;
         this.position = position;
         this.joinTime = joinTime;
         this.leaveTime = leaveTime;

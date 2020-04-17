@@ -1,5 +1,8 @@
 package com.bluesky.middleplatform.commons.db.mybatis.utils;
 
+import tk.mybatis.mapper.annotation.RegisterMapper;
+
+@RegisterMapper
 public interface BatchUpdateMapper<T> {
 
     /**

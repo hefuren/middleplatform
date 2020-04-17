@@ -17,7 +17,7 @@ public class BaseObject extends BatchObject implements Serializable,
 
     private static final long serialVersionUID = 1946457095889908885L;
 
-    @Column(name = "id")
+    @Transient
     protected Integer id;
 
     @Column(name = "createby")
@@ -32,7 +32,7 @@ public class BaseObject extends BatchObject implements Serializable,
     @Column(name = "lastupdatetime")
     protected Date lastUpdateTime;
 
-    @Column(name = "tenantId", nullable = false)
+    @Transient
     protected Integer tenantId;
 
     @Transient

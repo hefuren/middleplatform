@@ -33,6 +33,10 @@ public class User extends BaseObject implements java.io.Serializable {
     @Column(name = "id", unique = true, nullable = false)
     private Integer id;
 
+    @Id
+    @Column(name = "tenantId")
+    private Integer tenantId;
+
     @Column(name = "name", nullable = false, length = 50)
     private String name;
 
@@ -77,9 +81,6 @@ public class User extends BaseObject implements java.io.Serializable {
 
     @Column(name = "birthday")
     private Timestamp birthday;
-
-    @Column(name = "tenantId")
-    private Integer tenantId;
 
     //用户来源（HR系统，社交账号等）
 

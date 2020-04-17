@@ -2,6 +2,7 @@ package com.bluesky.middleplatform.commons.db.mybatis.utils;
 
 import com.bluesky.middleplatform.commons.db.mybatis.provider.BatchInsertProvider;
 import org.apache.ibatis.annotations.InsertProvider;
+import tk.mybatis.mapper.annotation.RegisterMapper;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  *
  * @param <T>
  */
+@RegisterMapper
 public interface BatchInsertMapper<T> {
 
     /**

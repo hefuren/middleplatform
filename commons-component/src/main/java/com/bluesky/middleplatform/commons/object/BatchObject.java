@@ -31,15 +31,14 @@ public class BatchObject implements Serializable, CacheObject {
     @Transient
     private boolean modified;
 
-    @Id
-    @Column(name = "id", unique = true, nullable = false)
+    @Transient
     public Integer id;
 
-    @Column(name = "companyid", nullable = false)
-    public Integer companyID;
+    @Transient
+    public Integer tenantId;
 
     public CacheKey getKey() {
-        return new CacheKey(getId(), getCompanyID());
+        return new CacheKey(getId(), getTenantId());
     }
 
     public boolean isNew() {
@@ -75,12 +74,12 @@ public class BatchObject implements Serializable, CacheObject {
         this.id = id;
     }
 
-    public Integer getCompanyID() {
-        return this.companyID;
+    public Integer getTenantId() {
+        return this.tenantId;
     }
 
-    public void setCompanyID(Integer companyID) {
-        this.companyID = companyID;
+    public void setTenantId(Integer companyID) {
+        this.tenantId = tenantId;
     }
 
     public Object clone() {

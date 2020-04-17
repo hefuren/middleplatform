@@ -2,9 +2,12 @@ package com.bluesky.middleplatform.usermanagementservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+import tk.mybatis.spring.annotation.MapperScan;
 
 
-//@ComponentScan(basePackages={"com.bluesky.middleplatform"})
+@MapperScan(basePackages = "com.bluesky.middleplatform.usermanagementservice")
+@ComponentScan(basePackages={"com.bluesky.middleplatform"})
 @SpringBootApplication
 public class UsermanagementserviceApplication {
 

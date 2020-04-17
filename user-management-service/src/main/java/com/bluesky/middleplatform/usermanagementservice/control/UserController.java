@@ -6,6 +6,7 @@ import com.bluesky.middleplatform.commons.component.utils.ComponentFactory;
 import com.bluesky.middleplatform.commons.utils.BaseController;
 import com.bluesky.middleplatform.usermanagementservice.model.User;
 import com.bluesky.middleplatform.usermanagementservice.service.ProfileManager;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 
-@RestController
+@RestController(value = "UserController")
 @RequestMapping(value = "/UserAction.html")
 public class UserController extends BaseController {
 
