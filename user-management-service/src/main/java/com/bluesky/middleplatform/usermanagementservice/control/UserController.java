@@ -39,10 +39,22 @@ public class UserController extends BaseController {
     public String newUser(String userJson) {
         ProfileManager manager = (ProfileManager) ComponentFactory.getManager("ProfileManager");
         User user = JSON.parseObject(userJson, User.class);
-
         manager.newUser(user);
-
         return userJson;
+    }
+
+    /**
+     *
+     * @param userId 用户ID
+     * @return 用户JSON字符
+     */
+    @GetMapping(value = "/getUser")
+    public String getUser(int userId){
+        ProfileManager manager = (ProfileManager) ComponentFactory.getManager("ProfileManager");
+        User user = manager.getUser(userId);
+        String userJson = JSON.toJSONString(user);
+        return userJson;
+
     }
 
     /**
