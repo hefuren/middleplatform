@@ -1,6 +1,7 @@
 package com.bluesky.middleplatform.usermanagementservice.model;
 
-import com.bluesky.middleplatform.commons.object.BaseObject;
+import com.bluesky.middleplatform.commons.microcache.ICacheObject;
+import com.bluesky.middleplatform.commons.object.BatchObject;
 import lombok.Data;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -13,7 +14,7 @@ import java.sql.Timestamp;
 @Scope(value = "prototype")
 @Entity
 @Table(name = "userManagerService_user", schema = "public")
-public class User extends BaseObject implements java.io.Serializable {
+public class User extends BatchObject implements java.io.Serializable, ICacheObject {
 
     /**
      *
@@ -136,5 +137,16 @@ public class User extends BaseObject implements java.io.Serializable {
         this.sourcetype = sourcetype;
         this.sourcename = sourcename;
         this.sourceid = sourceid;
+    }
+
+    @Override
+    public Object clone() {
+        Object o = null;
+        try {
+            o = super.clone();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return o;
     }
 }

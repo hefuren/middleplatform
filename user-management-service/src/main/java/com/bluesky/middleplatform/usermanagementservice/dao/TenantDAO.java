@@ -9,11 +9,11 @@ public interface TenantDAO<T> extends BaseSimpleDataDAO<T> {
      * 激活租户/公司对象
      * @param mode
      */
-    public void  activateCompany(Tenant mode);
+    public void  activateTenant(Tenant mode);
 
     /**
      * 将租户/公司对象设置为未激活
      * @param mode
      */
-    public void expireCompany(Tenant mode);
+    public void expireTenant(Tenant mode);
 }

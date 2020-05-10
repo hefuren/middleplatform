@@ -19,7 +19,7 @@ public class TenantDAOImpl extends BaseSimpleDataDAOImpl<Tenant> implements Tena
     }
 
     @Override
-    public void activateCompany(Tenant mode) {
+    public void activateTenant(Tenant mode) {
         log.debug("Active Tenant/Company begining...");
         try {
             Mapper<Tenant> mapper = this.getMapper(sqlSession, mapperType);
@@ -34,7 +34,7 @@ public class TenantDAOImpl extends BaseSimpleDataDAOImpl<Tenant> implements Tena
     }
 
     @Override
-    public void expireCompany(Tenant mode) {
+    public void expireTenant(Tenant mode) {
         log.debug("expire Tenant/Company begining...");
         try {
             Mapper<Tenant> mapper = this.getMapper(sqlSession, mapperType);

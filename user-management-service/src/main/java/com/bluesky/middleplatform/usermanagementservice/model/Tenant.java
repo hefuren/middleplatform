@@ -1,5 +1,7 @@
 package com.bluesky.middleplatform.usermanagementservice.model;
 
+import com.bluesky.middleplatform.commons.microcache.ICacheObject;
+import com.bluesky.middleplatform.commons.object.BaseObject;
 import lombok.Data;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -8,6 +10,7 @@ import javax.persistence.*;
 
 /**
  * 租户（公司）对象
+ *
  * @author ElwinHe
  */
 @Data
@@ -15,7 +18,7 @@ import javax.persistence.*;
 @Scope(value = "prototype")
 @Entity
 @Table(name = "userManagerService_tenant", schema = "public")
-public class Tenant implements java.io.Serializable {
+public class Tenant extends BaseObject implements java.io.Serializable, ICacheObject {
 
     /**
      * 状态：激活的
@@ -77,20 +80,26 @@ public class Tenant implements java.io.Serializable {
 
     // Constructors
 
-    /** default constructor */
+    /**
+     * default constructor
+     */
     public Tenant() {
     }
 
-    /** minimal constructor */
+    /**
+     * minimal constructor
+     */
     public Tenant(Integer id) {
         this.id = id;
     }
 
-    /** full constructor */
+    /**
+     * full constructor
+     */
     public Tenant(Integer id, String name, String description,
-                   Integer status, Integer type, String contactname,
-                   String contactemail, String contactphone, String contactfax,
-                   String zip, String url, Integer employess, String adress) {
+                  Integer status, Integer type, String contactname,
+                  String contactemail, String contactphone, String contactfax,
+                  String zip, String url, Integer employess, String adress) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -107,4 +116,14 @@ public class Tenant implements java.io.Serializable {
     }
 
 
+    @Override
+    public Object clone() {
+        Object o = null;
+        try {
+            o = super.clone();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return o;
+    }
 }

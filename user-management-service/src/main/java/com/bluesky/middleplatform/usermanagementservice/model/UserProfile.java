@@ -1,10 +1,18 @@
 package com.bluesky.middleplatform.usermanagementservice.model;
 
 import com.bluesky.middleplatform.commons.object.BaseObject;
+import lombok.Data;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.Date;
 
+@Data
+@Component(value = "UserProfile")
+@Scope(value = "prototype")
+@Entity
+@Table(name = "userManagerService_userProfile", schema = "public")
 public class UserProfile extends BaseObject implements java.io.Serializable {
 
 
@@ -25,11 +33,40 @@ public class UserProfile extends BaseObject implements java.io.Serializable {
 
     // Fields
 
+    @Id
+    @OrderBy
+    @Column(name = "id", unique = true, nullable = false)
     private Integer id;
+
+    /**
+     * 用户Id
+     */
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userid", nullable = false)
     private Integer userId;
+
+    /**
+     * 职位
+     */
+    @Column(name = "position", length = 50)
     private Integer position;
+
+    /**
+     * 状态
+     */
+    @Column(name = "status")
     private Integer status;
+
+    /**
+     * 入职时间
+     */
+    @Column(name = "jointime")
     private Date joinTime;
+
+    /**
+     * 离职时间
+     */
+    @Column(name = "leavetime")
     private Date leaveTime;
 
     @Transient
@@ -70,71 +107,5 @@ public class UserProfile extends BaseObject implements java.io.Serializable {
         this.lastUpdateTime = lastupdatetime;
     }
 
-    // Property accessors
-    @Override
-    @Id
-    @Column(name = "id", unique = true, nullable = false)
-    public Integer getId() {
-        return this.id;
-    }
 
-    @Override
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userid", nullable = false)
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    @Transient
-    public User getUser() {
-        return this.user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    @Column(name = "position")
-    public Integer getPosition() {
-        return this.position;
-    }
-
-    public void setPosition(Integer position) {
-        this.position = position;
-    }
-
-    @Column(name = "jointime")
-    public Date getJointime() {
-        return this.joinTime;
-    }
-
-    public void setJoinTime(Date joinTime) {
-        this.joinTime = joinTime;
-    }
-
-    @Column(name = "leavetime")
-    public Date getLeaveTime() {
-        return this.leaveTime;
-    }
-
-    public void setLeaveTime(Date leaveTime) {
-        this.leaveTime = leaveTime;
-    }
-
-    @Column(name = "status")
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
 }

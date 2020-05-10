@@ -123,15 +123,6 @@ public interface ProfileManager {
     public User getUser(int userID);
 
     /**
-     * 从缓存中获取用户
-     *
-     * @param tenantID
-     * @param userID
-     * @return
-     */
-    public User getUserFormCache(int tenantID, int userID);
-
-    /**
      * 通过用户名获取用户
      *
      * @param username 用户名
@@ -201,7 +192,15 @@ public interface ProfileManager {
     /**
      * 获取系统管理员账号
      *
-     * @return
+     * @return AdminUser
      */
     public User getAdminUser();
+
+    /**
+     * 从缓存中获取用户
+     * @param tenantId
+     * @param userId
+     * @return
+     */
+    public User getUserFormCache(int tenantId, int userId);
 }

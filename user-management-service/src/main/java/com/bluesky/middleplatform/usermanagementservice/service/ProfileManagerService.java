@@ -1,7 +1,9 @@
 package com.bluesky.middleplatform.usermanagementservice.service;
 
 import com.bluesky.middleplatform.commons.db.PageInfo;
+import com.bluesky.middleplatform.usermanagementservice.dao.TenantDAO;
 import com.bluesky.middleplatform.usermanagementservice.dao.UserDAO;
+import com.bluesky.middleplatform.usermanagementservice.dao.UserProfileDAO;
 import com.bluesky.middleplatform.usermanagementservice.model.Tenant;
 import com.bluesky.middleplatform.usermanagementservice.model.User;
 import com.bluesky.middleplatform.usermanagementservice.model.UserProfile;
@@ -17,44 +19,80 @@ import java.util.List;
 public class ProfileManagerService implements ProfileManager {
 
 //    @Resource(name="TenantDAOImpl")
-//    private CompanyDAO companyDAO;
 
     @Resource(name = "UserDAOImpl")
     private UserDAO userDAO;
 
-    @Override
-    public void newTenant(Tenant Tenant) {
+    @Resource(name="UserProfileDAOImpl")
+    private UserProfileDAO userProfileDAO;
 
+    @Resource(name = "TenantDAOImpl")
+    private TenantDAO tenantDAO;
+
+    @Override
+    public void newTenant(Tenant tenant) {
+        try {
+            this.tenantDAO.newMode(tenant);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
-    public void updateTenant(Tenant Tenant) {
-
+    public void updateTenant(Tenant tenant) {
+        try {
+            this.tenantDAO.updateMode(tenant);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
-    public Tenant getTenant(int TenantId) {
+    public Tenant getTenant(int tenantId) {
+        Tenant tenant = null;
+        try {
+            tenant = (Tenant) tenantDAO.getMode(tenantId);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return tenant;
+    }
+
+    @Override
+    public void deleteTenant(int tenantId) {
+        try {
+            this.tenantDAO.deleteMode(tenantId);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public Tenant getTenant(String tenantName) {
+        try {
+            return (Tenant) this.tenantDAO.getModesByProperty("name", tenantName);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         return null;
     }
 
     @Override
-    public void deleteTenant(int TenantId) {
-
+    public void activateTenant(Tenant tenant) {
+        try {
+            this.tenantDAO.activateTenant(tenant);;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
-    public Tenant getTenant(String TenantName) {
-        return null;
-    }
-
-    @Override
-    public void activateTenant(Tenant mode) {
-
-    }
-
-    @Override
-    public void expireTenant(Tenant mode) {
-
+    public void expireTenant(Tenant tenant) {
+        try {
+            this.tenantDAO.expireTenant(tenant);;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
@@ -156,32 +194,61 @@ public class ProfileManagerService implements ProfileManager {
 
     @Override
     public UserProfile getUserProfile(int userId) {
+        try {
+            return (UserProfile)
+                    this.userProfileDAO.getModesByProperty("userId", userId);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         return null;
     }
 
     @Override
     public void newUserProfile(UserProfile userProfile) {
+        try {
+            this.userProfileDAO.newMode(userProfile);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
     }
 
     @Override
     public void batchNewUserProfiles(List<UserProfile> modes) {
+        try {
+            this.userProfileDAO.batchNewModes(modes);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
     }
 
     @Override
     public void updateUserProfile(UserProfile userProfile) {
+        try {
+            this.userProfileDAO.updateMode(userProfile);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
     }
 
     @Override
     public void batchUpdateUserProfiles(List<UserProfile> modes) {
-
+        try {
+            this.userProfileDAO.batchUpdateModes(modes);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
     public void deleteUserProfile(UserProfile userProfile) {
-
+        try {
+            this.userProfileDAO.deleteMode(userProfile);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
