@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 
-import com.bluesky.middleplatform.commons.microcache.CacheObject;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -12,8 +11,7 @@ import javax.persistence.Transient;
 
 
 @Data
-public class BaseObject extends BatchObject implements Serializable,
-        CacheObject {
+public class BaseObject implements Serializable{
 
     private static final long serialVersionUID = 1946457095889908885L;
 

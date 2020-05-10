@@ -1,14 +1,10 @@
 package com.bluesky.middleplatform.commons.object;
 
 import com.bluesky.middleplatform.commons.microcache.CacheKey;
-import com.bluesky.middleplatform.commons.microcache.CacheObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Id;
 
 
 import javax.persistence.Transient;
@@ -18,7 +14,7 @@ import javax.persistence.Transient;
  * 批量操作BaseObject
  * 具备批量操作的对象，继承该类
  */
-public class BatchObject implements Serializable, CacheObject {
+public class BatchObject extends BaseObject implements Serializable {
 
     private static final long serialVersionUID = -4601357344844634511L;
 

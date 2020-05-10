@@ -1,6 +1,10 @@
 package com.bluesky.middleplatform.commons.microcache;
 
-public interface CacheObject extends Cloneable {
+/**
+ * 缓存对象接口
+ * （需要缓存的对象，需要实现该接口）
+ */
+public interface ICacheObject extends Cloneable {
 
     public Object clone();
 

@@ -80,5 +80,13 @@ public class BaseController {
         return null;
     }
 
+    /**
+     * 获取SessionManager对象（WebMgr）
+     * @return
+     */
+    public SessionManager getWebMgr(){
+        return this.webMgr;
+    }
+
 
 }
