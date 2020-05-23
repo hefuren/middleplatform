@@ -9,6 +9,7 @@ import com.bluesky.middleplatform.commons.utils.BaseContext;
 import com.bluesky.middleplatform.commons.utils.BaseController;
 import com.bluesky.middleplatform.commons.utils.CalendarUtils;
 import com.bluesky.middleplatform.commons.utils.TypeUtils;
+import com.bluesky.middleplatform.commons.utils.password.PBKDF2Utils;
 import com.bluesky.middleplatform.usermanagementservice.model.User;
 import com.bluesky.middleplatform.usermanagementservice.service.DepartmentManager;
 import com.bluesky.middleplatform.usermanagementservice.service.ProfileManager;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +50,7 @@ public class UserController extends BaseController {
      * @return userJson （注册成功，用户ID不为0）
      */
     @PostMapping(value = "/registerUser")
-    public String registerUser(String userJson){
+    public String registerUser(String userJson) throws Exception{
         //注册用户，即为新建用户
         userJson = newUser(userJson);
         return userJson;
@@ -61,12 +64,19 @@ public class UserController extends BaseController {
      * @return userJson
      */
     @PostMapping(value = "/newUser")
-    public String newUser(String userJson) {
+    public String newUser(String userJson) throws Exception{
         ProfileManager manager = (ProfileManager) ComponentFactory.getManager("ProfileManager");
+        JSONObject jsonObject = JSONObject.parseObject(userJson);
         User mode = JSON.parseObject(userJson, User.class);
         //设置新用户ID
         Long seqID = SequenceUtils.getSequence("userManagerService_user");
         mode.setId(TypeUtils.nullToInt(seqID));
+        //设置用户密码(明文密码加密后存储)
+        String password = jsonObject.getString("password");
+        String salt = PBKDF2Utils.getSalt();
+        String cryptographPassword = PBKDF2Utils.getPBKDF2Cryptograph(password,salt,PBKDF2Utils.PBKDF2_DEFAULT_ITERCOUNT);
+        mode.setPassword(cryptographPassword);
+        mode.setSalt(salt);
 //        mode.setCreateBy(user.getId());
         mode.setCreateTime(CalendarUtils.getCurrentDate());
 //        mode.setLastUpdateBy(user.getId());
@@ -176,6 +186,30 @@ public class UserController extends BaseController {
         manager.deleteUser(mode);
 
     }
+
+    /**
+     * 用户登录校验
+     * @param username 用户名
+     * @param password 密码
+     * @param tenantId 租户ID
+     */
+    public boolean login(String username, String password, int tenantId) throws InvalidKeySpecException, NoSuchAlgorithmException {
+        boolean flag = false;
+        ProfileManager manager = (ProfileManager) ComponentFactory.getManager("ProfileManager");
+        User user = manager.getUser(username,tenantId);
+
+        if(user == null){
+            //用户不存在；
+            return false;
+        }
+
+        flag = PBKDF2Utils.verify(password,user.getSalt(), PBKDF2Utils.PBKDF2_DEFAULT_ITERCOUNT,user.getPassword());
+
+        return flag;
+
+    }
+
+
 
 
 }

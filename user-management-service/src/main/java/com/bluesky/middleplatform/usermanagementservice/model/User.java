@@ -44,6 +44,12 @@ public class User extends BatchObject implements java.io.Serializable, ICacheObj
     @Column(name = "password", length = 500)
     private String password;
 
+    /**
+     * 盐值（PBKDF2加密随机盐值）
+     */
+    @Column(name = "salt", length = 100)
+    private String salt;
+
     @Column(name = "displayname", length = 50)
     private String displayname;
 
