@@ -62,30 +62,30 @@ public class BatchObject extends BaseObject implements Serializable {
     }
 
 
-    public Integer getId() {
-        return this.id;
-    }
+//    public Integer getId() {
+//        return this.id;
+//    }
+//
+//    public void setId(Integer id) {
+//        this.id = id;
+//    }
+//
+//    public Integer getTenantId() {
+//        return this.tenantId;
+//    }
+//
+//    public void setTenantId(Integer tenantId) {
+//        this.tenantId = tenantId;
+//    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getTenantId() {
-        return this.tenantId;
-    }
-
-    public void setTenantId(Integer companyID) {
-        this.tenantId = tenantId;
-    }
-
-    public Object clone() {
-        Object o = null;
-        try {
-            o = super.clone();
-        } catch (Exception e) {
-        }
-        return o;
-    }
+//    public Object clone() {
+//        Object o = null;
+////        try {
+////            o = super.clone();
+////        } catch (Exception e) {
+////        }
+////        return o;
+//    }
 
     public static List getNewList(List list) {
         List newList = new ArrayList();
